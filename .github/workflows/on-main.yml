@@ -1,0 +1,34 @@
+name: État des comptes
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  etat-des-comptes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone comptanar repository
+        run: |
+          git clone --depth 1 https://github.com/DavidBruant/comptanar.git .
+
+      - name: Clone data repository
+        run: |
+          git clone --depth 1 ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} data
+      - name: Override generic files with specific ones
+        run: |
+          mv data/* .
+      - name: Installer et lancer l'état des comptes ⚙️
+        run: |
+          npm install
+          npm run etat-des-comptes
+      - name: Rajouter les fichiers 
+        run: |
+          git add etat-des-comptes.yml
+          git commit -a -m "Rajout de l'état des comptes"
+      - name: Pousser le résultat dans une branche 'résultat'
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: 'résultat'
+      
