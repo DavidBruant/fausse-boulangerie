@@ -8,19 +8,12 @@ jobs:
   etat-des-comptes:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone comptanar repository
-        run: |
-          git clone --depth 1 https://github.com/DavidBruant/comptanar.git .
-
       - name: Clone data repository
         run: |
-          git clone --depth 1 ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} data
-      - name: Override generic files with specific ones
-        run: |
-          mv data/* .
+          git clone --depth 1 ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} .
       - name: Installer et lancer l'état des comptes ⚙️
         run: |
-          npm install
+          npm ci
           npm run etat-des-comptes
       - name: Rajouter les fichiers 
         run: |
