@@ -4,8 +4,7 @@
   "description": "un repo test pour comptanar",
   "main": "index.js",
   "scripts": {
-    "etat-des-comptes": "etat-des-comptes",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "état-des-comptes": "écritures-comptables.js < données/opérations-haut-niveau.yml | état-des-comptes > edc.json"
   },
   "repository": {
     "type": "git",
